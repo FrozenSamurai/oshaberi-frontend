@@ -51,6 +51,61 @@ function RoomsList({
   const history = useHistory();
   const user = getAuth().currentUser;
 
+  const formatted_topics = {};
+  if (topics) {
+    Object.keys(topics).forEach((topic) => {
+      formatted_topics[topic] = Object.keys(topics[topic]).map((user_id) => {
+        for (let room of openRooms) {
+          if (room.recipient_id === user_id) {
+            return {
+              ...topics[topic][user_id],
+              ...room,
+            };
+          }
+        }
+        return topics[topic][user_id];
+      });
+    });
+    console.log(formatted_topics);
+  }
+
+  useEffect(() => {
+    // fetch open rooms
+    if (user?.uid) {
+      getOpenRooms(user, (data) => {
+        const formattedData = Object.keys(data).map((room_id) => {
+          return {
+            ...data[room_id],
+            room_id,
+          };
+        });
+        setOpenRooms((state) => {
+          const newState = [];
+          formattedData.forEach((room) => {
+            if (newState.find((r) => r.room_id === room.room_id)) {
+              return;
+            } else {
+              newState.push(room);
+            }
+          });
+          if (state && state.length > 0) {
+            state.forEach((room) => {
+              if (newState.find((r) => r.room_id === room.room_id)) {
+                return;
+              } else {
+                newState.push(room);
+              }
+            });
+          }
+          setLoadingRooms(false);
+          return newState;
+        });
+      });
+
+      return () => {};
+    }
+  }, [user]);
+
   const handleOk = () => {
     setOkLoading(true);
 
