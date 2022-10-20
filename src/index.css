@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@font-face {
+  src: local("Forum") url("./fonts/Forum-Regular.ttf") format("ttf");
+  font-family: "Forum";
+}
+
+.logo {
+  color: #ff914d;
+  font-size: 2rem;
+  font-family: Forum;
+  content: "Oshaberi";
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  cursor: pointer;
+}
+
+/* .logo:hover {
+  display: none;
+}
+
+.logo:hover::after {
+  display: block;
+  content: "おしゃべり";
+} */
+
+@keyframes show {
+  from {
+    display: none;
+  }
+  to {
+    display: flex;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(24, 144, 255);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(96, 178, 255);
+}
+
+.ant-tabs-tabpane.ant-tabs-tabpane-active {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 12px !important;
+}
